@@ -9,9 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tensorflow-models/mobilenet": "^2.1.1",
+    "@tensorflow/tfjs": "^4.21.0",
+    "@tensorflow/tfjs-backend-cpu": "^4.21.0",
+    "@tensorflow/tfjs-backend-webgl": "^4.21.0",
+    "axios": "^1.7.7",
+    "next": "14.2.14",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.14"
+    "tesseract.js": "^5.1.1"
   },
   "devDependencies": {
     "eslint": "^8",
