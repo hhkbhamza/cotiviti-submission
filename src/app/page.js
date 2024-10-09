@@ -1,13 +1,16 @@
 "use client";
 import Tesseract from "tesseract.js";
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Button, Container, Typography, Box } from "@mui/material";
 
 export default function Home() {
   const [image, setImage] = useState(null);
   const [text, setText] = useState("");
   const [fileName, setFileName] = useState("");
 
+  // Checks if a file is selected, stores the file as a preview and sets the file name
+  // Runs OCR if not an x-ray
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -35,6 +38,7 @@ export default function Home() {
     );
   };
 
+  // Performs an async call to the OpenAI API for NLP, updates the text state with the output from OpenAI response
   const handleNLP = async () => {
     try {
       const response = await axios.post(
@@ -60,12 +64,31 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <h1>POC</h1>
-      <input type="file" onChange={handleFileChange} />
-      {image && <img id="Image" src={image} alt="ig" width={300} />}
-      <button onClick={handleNLP}>Extract Medical Terms</button>
-      <p>{text}</p>
-    </div>
+    <Container maxWidth="sm">
+      <Box my={4}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          POC Demo
+        </Typography>
+        <input
+          type="file"
+          onChange={handleFileChange}
+          style={{ marginBottom: "16px" }}
+        />
+        {image && <img id="Image" src={image} alt="Uploaded" width={300} />}
+        <Box mt={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleNLP}
+            style={{ marginRight: "8px" }}
+          >
+            Extract Medical Terms
+          </Button>
+        </Box>
+        <Typography variant="body1" style={{ marginTop: "16px" }}>
+          {text}
+        </Typography>
+      </Box>
+    </Container>
   );
 }
